@@ -1,5 +1,5 @@
 const express = require("express");
-const { connectDB } = require("./db");
+const { connectDB } = require("./src/db");
 const app = express();
 require("dotenv").config();
 const morgan = require("morgan");
@@ -11,7 +11,7 @@ const local = {
 };
 
 const port = process.env.SECRET_PORT;
-const userRoutes = require("./routes/userRoutes");
+const userRoutes = require("./src/routes/userRoutes");
 
 app.use(express.json());
 app.use(morgan("dev"));
