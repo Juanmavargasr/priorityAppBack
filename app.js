@@ -5,8 +5,8 @@ require("dotenv").config();
 const morgan = require("morgan");
 const cors = require("cors");
 
-const local = {
-  origin: "http://localhost:5173",
+const javier = {
+  origin: "https://2h7cx4mc-8081.use2.devtunnels.ms",
   credentials: true,
 };
 
@@ -15,7 +15,7 @@ const userRoutes = require("./src/routes/userRoutes");
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors(local));
+app.use(cors(javier));
 
 app.use("/users", userRoutes);
 
