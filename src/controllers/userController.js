@@ -36,8 +36,30 @@ const createUser = async (req, res) => {
     });
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).json({ error: constants.userConstants.erroCreatingUser });
+    res.status(500).json({ error: constants.userConstants.errorCreatingUser });
   }
 };
 
-module.exports = { createUser };
+const getUserById = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const foundUser = await User.findById(id);
+    if (!foundUser) {
+      res.status(404).json({ message: constants.userConstants.userNotFound });
+    } else {
+      const resUser = JSON.parse(JSON.stringify(foundUser));
+      delete resUser.password;
+      res.status(200).json({
+        message: constants.userConstants.userFound,
+        user: resUser,
+      });
+    }
+  } catch (error) {
+    console.error("error getting user:", error);
+    res.status(500).json({
+      message: constants.userConstants.errorGettingUser,
+    });
+  }
+};
+
+module.exports = { createUser, getUserById };
